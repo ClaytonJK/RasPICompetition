@@ -1,3 +1,12 @@
+import requests
+
+
+print("Choose your first string.")
+a = "Beginning"
+print("Choose your second string.")
+b = "Unlock"
+print("Choose your third string.")
+c = "Process"
 
 
 import os
@@ -9,6 +18,14 @@ import usb.core
 #import adafruit_lis3dh
 import sys
 
+def email_alert(first, second, third):
+    report = {}
+    report["value1"] = first
+    report["value2"] = second
+    report["value3"] = third
+    requests.post("https://maker.ifttt.com/trigger/unlock_check_success/with/key/dUYMa2lom5BTh8s9AMF7w0", data=report)    
+
+
 #### Internal Variables
 setupCounter = 0
 gestureCounter = 0
@@ -17,13 +34,13 @@ check = 0
 indexIncrement = 0
 tolerance = 0
 
-#### Acceleration Variables
+#### Acceleration Variables (Placeholders until accelerometer is attached)
 x = 1
 y = 2
 z = 3
-x1 = 4
-y1 = 5
-z1 = 6
+x1 = 1
+y1 = 2
+z1 = 3
 
 
 print("Starting Program")
@@ -95,5 +112,6 @@ for test in checkList:
 #### If at least half of the accelerations are within range, the unlocking occurs
 if check>=75:
     print("Unlocking")
+    email_alert(a, b, c)
 else:
     print("Try Again!")
